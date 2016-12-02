@@ -35,7 +35,7 @@ function parseSingleInput(input) {
 }
 
 function parseInput(input) {
-  var instructions = _(input.split(","))
+  let instructions = _(input.split(","))
     .each(x => x.trim())
     .filter(x => x)  //is not empty or null
     .map(x => parseSingleInput(x));
@@ -84,33 +84,129 @@ function getFacingDirection(vector) {
   throw `Error determining direction for vector [x:${vector.x} y:${vector.y}]`
 }
 
-function countBlocks(accumulatedDirections) {
-  var directionStrings = _(accumulatedDirections)
+function countBlocks(directions) {
+  var directionStrings = _(directions)
     .map(direction => {
       return `${Math.abs(direction.x) + Math.abs(direction.y)} blocks ${getFacingDirection(direction)}`
     })
   
   var netVector = new Victor(0, 0)
-  _(accumulatedDirections).each(x => netVector.add(x))
+  _(directions).each(x => netVector.add(x))
   var totalBlocksString = `${Math.round(Math.abs(netVector.x) + Math.abs(netVector.y))} total blocks`
 
   return directionStrings.concat(totalBlocksString)
 }
 
+function whereAmI(directions) {
+  var netVector = new Victor(0, 0)
+  _(directions).each(x => netVector.add(x)) //change to _.reduce()
+  return new Victor(Math.round(netVector.x), Math.round(netVector.y))
+}
+
 function calculateSimplifiedDirections(instructions) {
-  var accumulatedDirections = []
-  
+  var directions = []
+  var locations = []
+
   var facing = north
+  var order = 1
+  var startLocation = new Victor(0, 0)
   while (instructions.length !== 0) {
     var instruction = instructions.shift()
     facing = turn(facing, instruction.direction)
-    accumulatedDirections.push( walk(facing, instruction.blocks) ) 
+    
+    var direction = walk(facing, instruction.blocks)
+
+    var endLocation = whereAmI(directions.concat(direction))
+    locations.push({ order: order, startLocation: startLocation, endLocation: endLocation })
+    directions.push(direction)
+   
+    order++
+    startLocation = endLocation
   }
 
-  return countBlocks(accumulatedDirections)
+  return locations
+}
+
+function calculateEarliestRepeatVisit(visits) {
+  if (visits.length <= 1) {
+    return -1
+  }
+
+  var firstVisit = _.min(visits)
+  var remainingVisits = _(visits).difference( [firstVisit] )
+
+  return _(remainingVisits).min()
+}
+
+function calculateNewlyVisitedBlocks(start, end) {
+  if (start < end) {
+    return _.range(start, end)
+  }
+
+  if (start > end) {
+    return _.range(start, end)
+  }
+}
+
+function calculateIntersectionsVisited(direction) {
+  if (direction.startLocation.x !== direction.endLocation.x) {
+    var blocksX = calculateNewlyVisitedBlocks(direction.startLocation.x, direction.endLocation.x)
+    return _(blocksX).map(x => {
+      return {
+        order: direction.order,
+        intersection: new Victor(x, direction.startLocation.y),
+        intersectionString: new Victor(x, direction.startLocation.y).toString()
+      }
+    }).value()
+  }
+
+  if (direction.startLocation.y !== direction.endLocation.y) {
+    var blocksY = calculateNewlyVisitedBlocks(direction.startLocation.y, direction.endLocation.y)
+    return _(blocksY).map(y => {
+      return {
+        order: direction.order,
+        intersection: new Victor(direction.startLocation.x, y),
+        intersectionString: new Victor(direction.startLocation.x, y).toString()
+      }
+    }).value()
+  }
+
+  throw `Could not determine which direction traveled from ${direction.startLocation.toString()} to ${direction.endLocation.toString()}`
+}
+
+function calculateVisitsToLocations(directions) {
+  var intersectionsVisited = _(directions)
+    .map(x => calculateIntersectionsVisited(x))
+    .flatten()
+    .value()
+
+  var intersectionGroups = _.groupBy(intersectionsVisited, "intersectionString")  
+
+  var intersectionsWithEarliestVisits = _(Object.values(intersectionGroups))
+    .map(x => {
+      return {
+        count: x.length,
+        earliestRepeatVisit: calculateEarliestRepeatVisit(_(x).map(y => y.order).value()),
+        intersection: x[0].intersection
+      }
+    })
+    .filter(x => x.count >= 2)
+    .sortBy(x => x.earliestRepeatVisit)
+    .value()
+
+  return intersectionsWithEarliestVisits;
 }
 
 function handle(input) {
-  var instructions = parseInput(input)
-  return calculateSimplifiedDirections(instructions)
+  let instructions = parseInput(input)
+  let directions = calculateSimplifiedDirections(instructions)
+  let locationsAndVisits = calculateVisitsToLocations(directions)
+  if (locationsAndVisits.length === 0) {
+    return "No locations were visited twice"
+  }
+
+  let intersection = locationsAndVisits[0].intersection
+  var blocksCount = Math.round(Math.abs(intersection.x) + Math.abs(intersection.y))
+
+  return `First intersection was revisited at leg# ${locationsAndVisits[0].earliestRepeatVisit} at ${intersection.toString()} - ${blocksCount} blocks away.`
 }
