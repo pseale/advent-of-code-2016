@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <title>Advent of Code 2016 - @pseale</title>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/lodash/4.17.2/lodash.min.js"></script>
+    <script type="text/javascript" src="victor.js"></script>
+    <script type="text/javascript" src="day1.js"></script>
+    <script type="text/javascript">
+        window.onload = () => {
+          var $form = document.getElementById("day1-form")
+          $form.onsubmit = (e) => {
+            e.preventDefault()
+
+            var $input = document.getElementById("day1-input")
+            var result = handle($input.value)
+
+            var $solutionArea = document.getElementById("solution-area")
+            $solutionArea.innerHTML = result.join('<br />')
+          } 
+        }
+    </script>
+  </head>
+  <body>
+    <div id="solution-area"></div>
+    <div id="input-area">
+      <form action="#" method="POST" id="day1-form">
+        <input type="text" name="day1-input" id="day1-input" />
+        <input type="submit" name="day1-submit" id="day1-submit" />
+      </form>
+    </div>
+  </body>
+</html>
