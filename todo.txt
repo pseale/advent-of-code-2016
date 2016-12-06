@@ -1,0 +1,3 @@
+[ ]Day1 - Make Part A work on the same page at the same time as Part B
+[ ]Day1 - Move all UI concerns to UI
+[ ]Day1 - remove VictorJS in leiu of writing my own turn function?
