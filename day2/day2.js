@@ -86,10 +86,7 @@ function createKeysForPartA() {
     left: eight
   })
 
-  return {
-    keys: [one, two, three, four, five, six, seven, eight, nine],
-    current: five
-  }
+  return five
 }
 
 function createKeysForPartB() {
@@ -191,10 +188,7 @@ function createKeysForPartB() {
     up: b
   })
 
-  return {
-    keys: [one, two, three, four, five, six, seven, eight, nine, a, b, c, d],
-    current: five
-  }
+  return five
 }
 
 function parseInput(input) {
@@ -215,8 +209,8 @@ function parseInput(input) {
     .value()
 }
 
-function solve(commands, keys) {
-  var currentKey = keys.current
+function solve(commands, startingKey) {
+  var currentKey = startingKey
   var positions = _(commands).map(command => {
     _(command).each(movement => {
       if (movement === constants.up) {
@@ -240,13 +234,13 @@ function solve(commands, keys) {
 }
 
 function solvePartA(commands) {
-  var keys = createKeysForPartA()
-  return solve(commands, keys)
+  var startingKey = createKeysForPartA()
+  return solve(commands, startingKey)
 }
 
 function solvePartB(commands) {
-  var keys = createKeysForPartB()
-  return solve(commands, keys)
+  var startingKey = createKeysForPartB()
+  return solve(commands, startingKey)
 }
 
 exports.constants = constants
