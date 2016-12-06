@@ -27,8 +27,13 @@ describe("day2.parseInput", () => {
 })
 
 describe("day2.createKeys", () => {
-  test("keypad starts at the 5", () => {
-    var keys = day2.createKeys()
+  test("keypad for part A starts at the 5", () => {
+    var keys = day2.createKeysForPartA()
+
+    expect(keys.current.position).toBe(5)
+  })
+  test("keypad for part B starts at the 5", () => {
+    var keys = day2.createKeysForPartB()
 
     expect(keys.current.position).toBe(5)
   })

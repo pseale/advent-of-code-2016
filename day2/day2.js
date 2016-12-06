@@ -15,7 +15,7 @@ function wireUpKey(wiring) {
   wiring.key.moveRight = () => wiring.right || doNotMove
 }
 
-function createKeys() {
+function createKeysForPartA() {
   var one = { position: 1 }
   var two = { position: 2 }
   var three = { position: 3 }
@@ -92,6 +92,110 @@ function createKeys() {
   }
 }
 
+function createKeysForPartB() {
+  var one = { position: 1 }
+  var two = { position: 2 }
+  var three = { position: 3 }
+  var four = { position: 4 }
+  var five = { position: 5 }
+  var six = { position: 6 }
+  var seven = { position: 7 }
+  var eight = { position: 8 }
+  var nine = { position: 9 }
+  var a = { position: "A" }
+  var b = { position: "B" }
+  var c = { position: "C" }
+  var d = { position: "D" }
+
+  wireUpKey({
+    key: one,
+    down: three
+  })
+
+  wireUpKey({
+    key: two,
+    down: six,
+    right: three
+  })
+
+  wireUpKey({
+    key: three,
+    up: one,
+    left: two,
+    right: four,
+    down: seven
+  })
+
+  wireUpKey({
+    key: four,
+    left: three,
+    down: eight
+  })
+
+  wireUpKey({
+    key: five,
+    right: six
+  })
+
+  wireUpKey({
+    key: six,
+    up: two,
+    left: five,
+    right: seven,
+    down: a
+  })
+
+  wireUpKey({
+    key: seven,
+    up: three,
+    left: six, 
+    right: eight,
+    down: b
+  })
+
+  wireUpKey({
+    key: eight,
+    up: four,
+    left: seven,
+    right: nine,
+    down: c
+  })
+
+  wireUpKey({
+    key: nine,
+    left: eight
+  })
+
+  wireUpKey({
+    key: a,
+    up: six,
+    right: b
+  })
+
+  wireUpKey({
+    key: b,
+    up: seven,
+    left: a,
+    right: c,
+    down: d
+  })
+
+  wireUpKey({
+    key: c,
+    up: eight,
+    left: b
+  })
+
+  wireUpKey({
+    key: d,
+    up: b
+  })
+
+  return {
+    keys: [one, two, three, four, five, six, seven, eight, nine, a, b, c, d],
+    current: five
+  }
+}
 
 function parseInput(input) {
   if (!input) {
@@ -111,9 +215,7 @@ function parseInput(input) {
     .value()
 }
 
-
-function solvePartA(commands) {
-  var keys = createKeys()
+function solve(commands, keys) {
   var currentKey = keys.current
   var positions = _(commands).map(command => {
     _(command).each(movement => {
@@ -137,7 +239,19 @@ function solvePartA(commands) {
   return positions
 }
 
+function solvePartA(commands) {
+  var keys = createKeysForPartA()
+  return solve(commands, keys)
+}
+
+function solvePartB(commands) {
+  var keys = createKeysForPartB()
+  return solve(commands, keys)
+}
+
 exports.constants = constants
-exports.createKeys = createKeys
+exports.createKeysForPartA = createKeysForPartA
+exports.createKeysForPartB = createKeysForPartB
 exports.parseInput = parseInput
 exports.solvePartA = solvePartA
+exports.solvePartB = solvePartB
