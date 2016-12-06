@@ -49,6 +49,6 @@ describe("Acceptance tests", () => {
     var commands = day2.parseInput(input)
     var result = day2.solvePartA(commands)
 
-    expect(result).toEqual([1, 9, 8, 5])
+    expect(result).toEqual("1985")
   })
 })

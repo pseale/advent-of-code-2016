@@ -229,6 +229,7 @@ function solve(commands, startingKey) {
     return currentKey.position
   })
   .value()
+  .join("")
 
   return positions
 }
