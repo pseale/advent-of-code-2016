@@ -1,0 +1,18 @@
+{
+  "name": "day3",
+  "version": "0.0.0",
+  "main": "day3.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^16.0.1",
+    "@types/lodash": "^4.14.43"
+  },
+  "dependencies": {
+    "@types/cli-color": "^0.3.29",
+    "cli-color": "^1.1.0",
+    "lodash": "^4.17.2"
+  }
+}
