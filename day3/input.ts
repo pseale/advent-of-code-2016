@@ -1607,22 +1607,24 @@ interface Triangle {
   side3 : Number
 }
 
-var lines = input.split("\n")
-export var parsedInput = _(lines)
-  .filter(x => x.trim() !== "")
-  .map(x => x.trim())
-  .map(x => {
-    var sides = _(x.split(" "))
-      .map(y => y.trim())
-      .filter(y => y)
-      .value()
-      
-    if (sides.length !== 3) {
-      throw `Cannot understand the triangle '${x}' - expected 3 sides, got {sides.length}`
-    }
-    var side1 = Number(sides[0])
-    var side2 = Number(sides[1])
-    var side3 = Number(sides[2])
-    return { side1: side1, side2: side2, side3: side3 } 
-  })
-  .value()
+export function parseInputForPartA() {
+  var lines = input.split("\n")
+  return _(lines)
+    .filter(x => x.trim() !== "")
+    .map(x => x.trim())
+    .map(x => {
+      var sides = _(x.split(" "))
+        .map(y => y.trim())
+        .filter(y => y)
+        .value()
+        
+      if (sides.length !== 3) {
+        throw `Cannot understand the triangle '${x}' - expected 3 sides, got {sides.length}`
+      }
+      var side1 = Number(sides[0])
+      var side2 = Number(sides[1])
+      var side3 = Number(sides[2])
+      return { side1: side1, side2: side2, side3: side3 } 
+    })
+    .value()
+}
