@@ -1,5 +1,4 @@
 import _ = require('lodash')
-import color = require('cli-color')
 
 interface TriangleMeasurement {
   side1: number,

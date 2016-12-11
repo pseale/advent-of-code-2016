@@ -1602,12 +1602,12 @@ var input = `
 import _ = require("lodash")
 
 interface Triangle {
-  side1 : Number,
-  side2 : Number,
-  side3 : Number
+  side1 : number,
+  side2 : number,
+  side3 : number
 }
 
-export function parseInputForPartA() {
+export function parseInputForPartA(inp? : string) : Triangle[] {
   var lines = input.split("\n")
   return _(lines)
     .filter(x => x.trim() !== "")
@@ -1627,4 +1627,46 @@ export function parseInputForPartA() {
       return { side1: side1, side2: side2, side3: side3 } 
     })
     .value()
+}
+
+function parseNumbers(line : string) : number[] {
+  return _(line.split(" "))
+    .filter(x => x !== "")
+    .map(n => {
+      var num = Number(n)
+      if (typeof(num) === "undefined") {
+        throw `Failed to interpret triangle side '${n}' as a number. Entire line: '${line}'`
+      }
+      return num
+    })
+    .value()
+}
+
+export function parseInputForPartB(inp? : string) : Triangle[] {
+  var inputToUse = typeof(inp) !== "undefined" ? inp : input
+
+  var lines =_(inputToUse.split("\n"))
+    .filter(x => x !== "")
+    .value()
+  
+  if (lines.length % 3 !== 0) {
+    throw `Impossible to parse input with ${lines.length} lines - expected a multiple of 3`
+  }
+
+  var verticalTriangles = []
+  var linesInGroup = _(_.range(0,(lines.length / 3)))
+    .map(x => {
+      var group = _(lines.slice(x * 3, x * 3 + 3))
+        .map(line => parseNumbers(line))
+        .value()
+
+      return [
+        { side1: group[0][0], side2: group[1][0], side3: group[2][0] },
+        { side1: group[0][1], side2: group[1][1], side3: group[2][1] },
+        { side1: group[0][2], side2: group[1][2], side3: group[2][2] }
+      ]
+    })
+    .value()
+
+  return _.flatten(linesInGroup)
 }
