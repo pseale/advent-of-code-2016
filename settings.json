@@ -1,0 +1,8 @@
+{
+    "typescript.check.tscVersion": false,
+    "editor.tabSize": 2,
+    "files.exclude": {
+        "**/.git": true,
+        "**/.js": {"when": "$(basename).ts"}
+    }
+}
