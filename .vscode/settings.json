@@ -3,6 +3,8 @@
     "editor.tabSize": 2,
     "files.exclude": {
         "**/.git": true,
-        "**/.js": {"when": "$(basename).ts"}
+        "node_modules/": true,
+        "**/*.js": {"when": "$(basename).ts"},
+        "day4/*.js": true
     }
 }
