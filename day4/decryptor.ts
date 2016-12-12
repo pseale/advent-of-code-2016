@@ -1,32 +1,37 @@
 import _ = require("lodash")
-import duper = require("./room-dupe")
+import checker = require("./checker")
 
-interface Room {
+interface EncryptedRoom {
+  sectorId : number,
+  encryptedName : string
+}
+
+interface DecryptedRoom {
   sectorId : number,
   name : string
 }
 
-function decryptLetter(letter: string, rotate : number) : string {
+function decryptAlphabeticalLetter(letter: string, rotate : number) : string {
   var charCodeForA = "a".charCodeAt(0)
   var offset = letter.charCodeAt(0) - charCodeForA
   var newCharCode = ((offset + rotate) % 26) + charCodeForA
   return String.fromCharCode(newCharCode)
 }
 
-export function decrypt(room : duper.Room) : Room {
-  var name = _(room.encryptedName.split(""))
+export function decrypt(encryptedRoom : EncryptedRoom) : DecryptedRoom {
+  var name = _(encryptedRoom.encryptedName.split(""))
     .map(x => {
       if (x === "-") {
         return " "
       }
 
-      return decryptLetter(x, room.sectorId)
+      return decryptAlphabeticalLetter(x, encryptedRoom.sectorId)
     })
     .value()
     .join("")
 
   return {
-    sectorId: room.sectorId,
+    sectorId: encryptedRoom.sectorId,
     name: name
   }
 }

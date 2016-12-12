@@ -1093,11 +1093,11 @@ jyfvnlupj-ibuuf-svnpzapjz-851[gmsnf]`
 
 import _ = require("lodash")
 import parser = require("./parser")
-import roomDupe = require("./room-dupe")
+import checker = require("./checker")
 import decryptor = require("./decryptor")
 
 var rooms = parser.parse(input)
-var results = _(rooms).map(x => roomDupe.check(x)).value()
+var results = _(rooms).map(x => checker.check(x)).value()
 
 var legalRooms = _(results).filter(x => x.legal === true).value().length
 var sum = _(results).filter(x => x.legal === true).map(x => x.sectorId).sum()

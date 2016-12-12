@@ -1,5 +1,5 @@
 import parser = require("../parser")
-import roomDupe = require("../room-dupe")
+import checker = require("../checker")
 import decryptor = require("../decryptor")
 
 describe("Acceptance tests", () => {
@@ -7,7 +7,7 @@ describe("Acceptance tests", () => {
     var rooms = parser.parse("aaaaa-bbb-z-y-x-123[abxyz]")
     var room = rooms[0]
 
-    var result = roomDupe.check(room)
+    var result = checker.check(room)
     expect(result.sectorId).toBe(123)
     expect(result.encryptedName).toBe("aaaaa-bbb-z-y-x")
     expect(result.legal).toBe(true)
@@ -17,7 +17,7 @@ describe("Acceptance tests", () => {
     var rooms = parser.parse("totally-real-room-200[decoy]")
     var room = rooms[0]
 
-    var result = roomDupe.check(room)
+    var result = checker.check(room)
     expect(result.sectorId).toBe(200)
     expect(result.encryptedName).toBe("totally-real-room")
     expect(result.legal).toBe(false)
@@ -39,7 +39,7 @@ describe("parsing", () => {
 
 describe("generating a checksum", () => {
   test("aaaaa-bbb-z-y-x-123[abxyz]", () => {
-    var result = roomDupe.generateChecksum("aaaaa-bbb-z-y-x")
+    var result = checker.generateChecksum("aaaaa-bbb-z-y-x")
 
     expect(result).toBe("abxyz")
   })
