@@ -1,5 +1,10 @@
 import _ = require("lodash")
-import room = require("./room")
+
+interface RoomInput {
+  encryptedName : string,
+  sectorId : number,
+  checksum : string
+}
 
 export interface Room {
   sectorId : number,
@@ -31,7 +36,7 @@ export function generateChecksum(encryptedName : string) : string {
   return expectedChecksum
 }
 
-export function check(room : room.Room) : Room {
+export function check(room : RoomInput) : Room {
   var legal = room.checksum ===  generateChecksum(room.encryptedName)
   return {
     sectorId: room.sectorId,

@@ -1,7 +1,12 @@
 import _ = require("lodash")
-import Room = require("./room")
 
-export function parse(input : string) : Room.Room[] {
+interface Room {
+  encryptedName : string,
+  sectorId : number,
+  checksum : string
+}
+
+export function parse(input : string) : Room[] {
   var lines = _(input.split("\n"))
     .filter(x => x !== "")
     .value()

@@ -1,5 +1,4 @@
 import parser = require("../parser")
-import room = require("../room")
 import roomDupe = require("../room-dupe")
 import decryptor = require("../decryptor")
 
