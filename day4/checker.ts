@@ -6,7 +6,7 @@ interface RoomInput {
   checksum : string
 }
 
-export interface Room {
+interface Room {
   sectorId : number,
   encryptedName : string,
   legal : boolean
