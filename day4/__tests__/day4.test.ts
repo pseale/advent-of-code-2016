@@ -1,10 +1,10 @@
-import parser = require("../parser")
+import parse = require("../parser")
 import checker = require("../checker")
 import decryptor = require("../decryptor")
 
 describe("Acceptance tests", () => {
   test("aaaaa-bbb-z-y-x-123[abxyz] is a real room", () => {
-    var rooms = parser.parse("aaaaa-bbb-z-y-x-123[abxyz]")
+    var rooms = parse("aaaaa-bbb-z-y-x-123[abxyz]")
     var room = rooms[0]
 
     var result = checker.check(room)
@@ -14,7 +14,7 @@ describe("Acceptance tests", () => {
   })
 
   test("totally-real-room-200[decoy] is not a real room", () => {
-    var rooms = parser.parse("totally-real-room-200[decoy]")
+    var rooms = parse("totally-real-room-200[decoy]")
     var room = rooms[0]
 
     var result = checker.check(room)
@@ -26,7 +26,7 @@ describe("Acceptance tests", () => {
 
 describe("parsing", () => {
   test("aaaaa-bbb-z-y-x-123[abxyz]", () => {
-    var result = parser.parse("aaaaa-bbb-z-y-x-123[abxyz]")
+    var result = parse("aaaaa-bbb-z-y-x-123[abxyz]")
 
     expect(result.length).toBe(1)
     

@@ -1,12 +1,12 @@
 import fs = require("fs");
 import _ = require("lodash")
-import parser = require("./parser")
+import parse = require("./parser")
 import checker = require("./checker")
 import decryptor = require("./decryptor")
 
 
 var input = fs.readFileSync("./input.txt", "utf8")
-var rooms = parser.parse(input)
+var rooms = parse(input)
 var results = _(rooms).map(x => checker.check(x)).value()
 
 var legalRooms = _(results).filter(x => x.legal === true).value().length

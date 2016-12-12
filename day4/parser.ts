@@ -6,10 +6,10 @@ interface Room {
   checksum : string
 }
 
-export function parse(input : string) : Room[] {
+function parse(input : string) : Room[] {
   var lines = _(input.split("\n"))
-    .filter(x => x !== "")
     .map(x => x.trim())
+    .filter(x => x !== "")
     .value()
 
   return _(lines)
@@ -44,3 +44,5 @@ export function parse(input : string) : Room[] {
     })
     .value()
 }
+
+export = parse
