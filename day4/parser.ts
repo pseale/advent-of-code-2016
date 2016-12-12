@@ -9,6 +9,7 @@ interface Room {
 export function parse(input : string) : Room[] {
   var lines = _(input.split("\n"))
     .filter(x => x !== "")
+    .map(x => x.trim())
     .value()
 
   return _(lines)
