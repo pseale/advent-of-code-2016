@@ -1094,15 +1094,19 @@ jyfvnlupj-ibuuf-svnpzapjz-851[gmsnf]`
 import _ = require("lodash")
 import parser = require("./parser")
 import roomDupe = require("./room-dupe")
+import decryptor = require("./decryptor")
 
 var rooms = parser.parse(input)
-var results = _(rooms).map(x => {
-  return {
-    room: x,
-    legal: roomDupe.isLegalRoom(x)
-  }
-})
+var results = _(rooms).map(x => roomDupe.check(x)).value()
 
 var legalRooms = _(results).filter(x => x.legal === true).value().length
-var sum = _(results).filter(x => x.legal === true).map(x => x.room.sectorId).sum()
+var sum = _(results).filter(x => x.legal === true).map(x => x.sectorId).sum()
+
+var partBResults = _(results)
+  .filter(x => x.legal === true)
+  .map(x => decryptor.decrypt(x))
+  .value()
+var possibleNorthPoleObjectStorageLocations = _(partBResults).filter(x => /north/.exec(x.name) && /pole/.exec(x.name) ).value()
+
 console.log(`Part A: Sum: ${sum} of ${legalRooms} legal rooms (of ${rooms.length} total)`)
+console.log(`Part B: all possible north pole locations: `, possibleNorthPoleObjectStorageLocations)

@@ -1,5 +1,11 @@
 import _ = require("lodash")
-import Room = require("./room")
+import room = require("./room")
+
+export interface Room {
+  sectorId : number,
+  encryptedName : string,
+  legal : boolean
+}
 
 export function generateChecksum(encryptedName : string) : string {
   var roomNameWithoutDashes = encryptedName.replace(/-/g, "")
@@ -25,6 +31,11 @@ export function generateChecksum(encryptedName : string) : string {
   return expectedChecksum
 }
 
-export function isLegalRoom(room : Room.Room) : boolean {
-  return room.checksum ===  generateChecksum(room.encryptedName)
+export function check(room : room.Room) : Room {
+  var legal = room.checksum ===  generateChecksum(room.encryptedName)
+  return {
+    sectorId: room.sectorId,
+    encryptedName: room.encryptedName,
+    legal: legal
+  }
 }
