@@ -1,6 +1,6 @@
 import parse = require("../parser")
 import checker = require("../checker")
-import decryptor = require("../decryptor")
+import decrypt = require("../decrypt")
 
 describe("Acceptance tests", () => {
   test("aaaaa-bbb-z-y-x-123[abxyz] is a real room", () => {
@@ -52,7 +52,7 @@ describe("decrypt", () => {
       sectorId: 343,
       legal: true
     }
-    var result = decryptor.decrypt(r)
+    var result = decrypt(r)
 
     expect(result.sectorId).toBe(343)
     expect(result.name).toBe("very encrypted name")

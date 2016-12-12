@@ -18,7 +18,7 @@ function decryptAlphabeticalLetter(letter: string, rotate : number) : string {
   return String.fromCharCode(newCharCode)
 }
 
-export function decrypt(encryptedRoom : EncryptedRoom) : DecryptedRoom {
+function decrypt(encryptedRoom : EncryptedRoom) : DecryptedRoom {
   var name = _(encryptedRoom.encryptedName.split(""))
     .map(x => {
       if (x === "-") {
@@ -35,3 +35,5 @@ export function decrypt(encryptedRoom : EncryptedRoom) : DecryptedRoom {
     name: name
   }
 }
+
+export = decrypt

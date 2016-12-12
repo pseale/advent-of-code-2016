@@ -2,7 +2,7 @@ import fs = require("fs");
 import _ = require("lodash")
 import parse = require("./parser")
 import checker = require("./checker")
-import decryptor = require("./decryptor")
+import decrypt = require("./decrypt")
 
 
 var input = fs.readFileSync("./input.txt", "utf8")
@@ -14,7 +14,7 @@ var sum = _(results).filter(x => x.legal === true).map(x => x.sectorId).sum()
 
 var partBResults = _(results)
   .filter(x => x.legal === true)
-  .map(x => decryptor.decrypt(x))
+  .map(x => decrypt(x))
   .value()
 var possibleNorthPoleObjectStorageLocations = _(partBResults).filter(x => /north/.exec(x.name) && /pole/.exec(x.name) ).value()
 
