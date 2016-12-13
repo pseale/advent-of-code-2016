@@ -1,0 +1,16 @@
+{
+  "name": "day6",
+  "version": "1.0.0",
+  "description": "",
+  "main": "day6.js",
+  "scripts": {
+    "test": "jest",
+    "lint": "tslint --project ./tsconfig.json"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@types/lodash": "^4.14.43",
+    "lodash": "^4.17.2"
+  }
+}
