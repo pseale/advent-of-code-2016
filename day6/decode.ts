@@ -9,11 +9,6 @@ interface ColumnResult {
   leastFrequent: string
 }
 
-interface LetterFrequencies {
-  letter: string,
-  occurrences: number
-}
-
 interface DecodeResult {
   mostFrequent: string,
   leastFrequent: string
@@ -24,7 +19,7 @@ function getMostAndLeastFrequentLetters(column: string[]): ColumnResult {
     .groupBy(x => x)
     .value()
 
-  const letters: LetterFrequencies[] = []
+  const letters = []
   _.forOwn(groups, (value, key) => {
     letters.push({
       letter: key,
