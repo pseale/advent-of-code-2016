@@ -1,7 +1,7 @@
 node_modules/
-day3/**/*.js
-day4/**/*.js
-day5/**/*.js
-day6/**/*.js
-day7/**/*.js
+day03/**/*.js
+day04/**/*.js
+day05/**/*.js
+day06/**/*.js
+day07/**/*.js
 *.map
