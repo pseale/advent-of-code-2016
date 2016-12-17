@@ -1,0 +1,40 @@
+body {
+  background: black;
+  font-family: Andale Mono, Monaco, Consolas, Inconsolata, Courier New, Courier, monospace;
+  font-size: 18px;
+  color: #070;
+}
+
+#page-container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-content: stretch;
+}
+
+#solution {
+  display: flex;
+  flex-direction: row;
+}
+
+#log, #grid {
+  display: inline-block;
+}
+
+#log {
+  width: 250px;
+}
+
+#input-area {
+    position: sticky;
+    bottom: 0;
+}
+
+.highlighted {
+  font-weight: bold;
+  color:#008800;
+}
+
+#step-slider {
+  width: 500px;
+}
