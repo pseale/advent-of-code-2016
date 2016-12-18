@@ -171,14 +171,14 @@ rotate column x=0 by 1`
 
 function getRect(line) {
   let dimensionsToken = line.split(" ")[1]
-  let xDimension = Number(dimensionsToken.split("x")[0])
-  let yDimension = Number(dimensionsToken.split("x")[1])
+  let columns = Number(dimensionsToken.split("x")[0])
+  let rows = Number(dimensionsToken.split("x")[1])
 
   return {
     text: line,
     rect: {
-      x: xDimension,
-      y: yDimension
+      columns,
+      rows
     },
     rotate: null
   }
