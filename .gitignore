@@ -4,4 +4,6 @@ day04/**/*.js
 day05/**/*.js
 day06/**/*.js
 day07/**/*.js
+day09/**/*.js
+
 *.map
