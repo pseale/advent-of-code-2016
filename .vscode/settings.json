@@ -4,7 +4,16 @@
     "files.exclude": {
         "**/.git": true,
         "**/node_modules": true,
-        "**/*.js": {"when": "$(basename).ts"},
+        "day03/**/*.js": true,
+        "day04/**/*.js": true,
+        "day05/**/*.js": true,
+        "day06/**/*.js": true,
+        "day07/**/*.js": true,
+        "day09/**/*.js": true,
+
+        /* this is a garbage rule, and you should never do it "*.js": {"when": "$(basename).ts"}, */
+
+        
         "**/*.map": true
     }
 }
