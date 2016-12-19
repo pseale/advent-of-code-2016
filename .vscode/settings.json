@@ -11,6 +11,7 @@
         "day07/**/*.js": true,
         "day09/**/*.js": true,
         "day10/**/*.js": true,
+        "day11/**/*.js": true,
 
         /* this is a garbage rule, and you should never do it "*.js": {"when": "$(basename).ts"}, */
 

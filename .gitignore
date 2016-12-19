@@ -6,5 +6,6 @@ day06/**/*.js
 day07/**/*.js
 day09/**/*.js
 day10/**/*.js
+day11/**/*.js
 
 *.map
