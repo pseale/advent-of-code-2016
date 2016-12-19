@@ -18,14 +18,14 @@ export interface Destination {
   destinationType: DestinationType
 }
 
-export class BotGivesChips {
+export class BotInstructionsCreated {
   public givenFromBotId: number
-  public lowGivenTo: Destination
-  public highGivenTo: Destination
+  public giveLowTo: Destination
+  public giveHighTo: Destination
 
-  constructor(givenFromBotId: number, lowGivenTo: Destination, highGivenTo: Destination) {
+  constructor(givenFromBotId: number, giveLowTo: Destination, giveHighTo: Destination) {
     this.givenFromBotId = givenFromBotId
-    this.lowGivenTo = lowGivenTo
-    this.highGivenTo = highGivenTo
+    this.giveLowTo = giveLowTo
+    this.giveHighTo = giveHighTo
   }
 }

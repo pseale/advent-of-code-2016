@@ -8,3 +8,4 @@ const events = parse(input)
 
 const factory = new Factory()
 events.forEach(event => factory.process(event))
+factory.solvePartB()

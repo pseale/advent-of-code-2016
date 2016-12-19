@@ -5,7 +5,7 @@ function parseReceiveEvent(line: string): Global.BotReceivesChip {
   return new Global.BotReceivesChip(Number(matches[1]), Number(matches[2]))
 }
 
-function parseGiveEvent(line: string): Global.BotGivesChips {
+function parseBotInstructionsCreatedEvent(line: string): Global.BotInstructionsCreated {
   const matches = /^bot (\d+) gives low to (\w+) (\d+) and high to (\w+) (\d+)$/.exec(line)
   const lowDestination = matches[2] === "bot" ? Global.DestinationType.Bot : Global.DestinationType.Bin
   const highDestination = matches[4] === "bot" ? Global.DestinationType.Bot : Global.DestinationType.Bin
@@ -20,10 +20,10 @@ function parseGiveEvent(line: string): Global.BotGivesChips {
       destinationType: highDestination
   }
 
-  return new Global.BotGivesChips(givenFromBotId, lowGivenTo, highGivenTo)
+  return new Global.BotInstructionsCreated(givenFromBotId, lowGivenTo, highGivenTo)
 }
 
-function parse(text: string): Array<Global.BotReceivesChip|Global.BotGivesChips> {
+function parse(text: string): Array<Global.BotReceivesChip|Global.BotInstructionsCreated> {
   const lines = text
     .split("\n")
     .map(x => x.trim())
@@ -33,12 +33,11 @@ function parse(text: string): Array<Global.BotReceivesChip|Global.BotGivesChips>
     .map(x => parseReceiveEvent(x))
 
   const giveEvents = lines.filter(x => x[0] === "b") // bot 138 gives low to bot 9 and high to bot 47
-    .map(x => parseGiveEvent(x))
+    .map(x => parseBotInstructionsCreatedEvent(x))
 
-  let typeSafeArray: Array<Global.BotReceivesChip|Global.BotGivesChips> = []
+  let typeSafeArray: Array<Global.BotReceivesChip|Global.BotInstructionsCreated> = []
   typeSafeArray = typeSafeArray
-    .concat(receiveEvents)
-    .concat(giveEvents)
+    .concat(receiveEvents).concat(giveEvents)
   return typeSafeArray
 }
 
