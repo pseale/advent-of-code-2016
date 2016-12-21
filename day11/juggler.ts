@@ -200,8 +200,21 @@ export function solve(startingState: StartingState): Solution {
       floors: startingState.floors
     }]
 
-  while (true) {
+  let depth = 0
+  let i = 0
+
+  while (q.length > 0) {
     const state = q.shift()
+
+    i++
+    if (state.moves.length > depth) {
+      depth++
+      console.log(`Trying move#${i} - depth:${depth} - moves to try:${q.length}`)
+    }
+
+    if (i % 1000 === 0) {
+      console.log(`Trying move#${i}`)
+    }
 
     const newStates = getUsefulMoves(state)
     const solutions = newStates.filter(newState => isASolution(newState, startingState.collectorFloor))
@@ -211,4 +224,6 @@ export function solve(startingState: StartingState): Solution {
 
     q = q.concat(newStates)
   }
+
+  throw `Error: Should never run out of solutions to attempt - these Advent of Code challenges always have a solution.`
 }
