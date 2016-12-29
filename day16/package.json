@@ -1,0 +1,22 @@
+{
+  "name": "day10",
+  "version": "1.0.0",
+  "description": "",
+  "main": "day10.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@types/lodash": "^4.14.43",
+    "cli-color": "^1.1.0",
+    "lodash": "^4.17.3"
+  },
+  "devDependencies": {
+    "@types/cli-color": "^0.3.29",
+    "@types/jest": "^16.0.1",
+    "@types/node": "^6.0.52",
+    "jest": "^18.0.0"
+  }
+}

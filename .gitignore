@@ -8,5 +8,6 @@ day09/**/*.js
 day10/**/*.js
 day11/**/*.js
 day12/**/*.js
+day16/**/*.js
 
 *.map
