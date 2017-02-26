@@ -1,4 +1,4 @@
-var day2 = require("../day2/day2")
+var day2 = require("../day2")
 
 describe("day2.parseInput", () => {
   test("parsing an empty line gives no instructions", () => {
